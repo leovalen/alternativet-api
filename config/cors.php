@@ -13,10 +13,9 @@ return [
      */
     'supportsCredentials' => true,
     'allowedOrigins' => ['*'],
-    'allowedHeaders' => ['Content-Type', 'Accept', 'Authorization', 'X-Requested-With'],
+    'allowedHeaders' => ['Content-Type', 'Origin', 'Accept', 'Authorization', 'X-Requested-With', 'DNT', 'Keep-Alive', 'User-Agent-X', 'If-Modified-Since', 'Cache-Control'],
     'allowedMethods' => ['GET', 'POST', 'PUT', 'DELETE'],
     'exposedHeaders' => ['Authorization'],
     'maxAge' => 0,
-    'hosts' => [],
+    'hosts' => [env('API_URL')],
 ];
-
