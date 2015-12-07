@@ -4,6 +4,11 @@ $api = app('Dingo\Api\Routing\Router');
 // Version 1 of our API
 $api->version('v1', function ($api) {
 
+	// Health check
+	$api->get('health', function(){
+		return response()->json(['status' => 'OK'], 200);
+	});
+
 	// Set our namespace for the underlying routes
 	$api->group(['namespace' => 'Api\Controllers', 'middleware' => 'cors'], function ($api) {
 
