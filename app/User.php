@@ -44,7 +44,8 @@ class User extends Model implements AuthenticatableContract,
      *
      * @return mixed
      */
-    public function getJWTIdentifier() {
+    public function getJWTIdentifier()
+    {
         return $this->attributes['id'];
     }
 
@@ -53,7 +54,13 @@ class User extends Model implements AuthenticatableContract,
      *
      * @return array
      */
-    public function getJWTCustomClaims() {
+    public function getJWTCustomClaims()
+    {
         return [];
+    }
+
+    public function membership()
+    {
+        return $this->hasMany('App\Membership');
     }
 }
