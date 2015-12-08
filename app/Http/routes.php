@@ -22,7 +22,6 @@ $api->version('v1', function ($api) {
 
 			$api->get('users/me', 'AuthController@me');
 			$api->get('validate_token', 'AuthController@validateToken');
-			
 			$api->get('dogs', 'DogsController@index');
 			$api->post('dogs', 'DogsController@store');
 			$api->get('dogs/{id}', 'DogsController@show');
@@ -30,7 +29,5 @@ $api->version('v1', function ($api) {
 			$api->put('dogs/{id}', 'DogsController@update');
 
 		});
-
 	});
-
 });
