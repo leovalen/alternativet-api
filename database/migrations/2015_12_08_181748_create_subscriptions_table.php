@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMembershipsTable extends Migration
+class CreateSubscriptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,15 @@ class CreateMembershipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('memberships', function (Blueprint $table) {
+        Schema::create('subscriptions', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->tinyInteger('stripe_active')->default(0);
-            $table->string('stripe_id')->nullable();
-            $table->string('stripe_subscription')->nullable();
-            $table->string('stripe_plan', 100)->nullable();
-            $table->string('last_four', 4)->nullable();
+            $table->string('name');
+            $table->string('stripe_id');
+            $table->string('stripe_plan');
+            $table->integer('quantity');
             $table->timestamp('trial_ends_at')->nullable();
-            $table->timestamp('subscription_ends_at')->nullable();
+            $table->timestamp('ends_at')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreateMembershipsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('memberships');
+        Schema::drop('subscriptions');
     }
 }
