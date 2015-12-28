@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Cashier\Billable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -16,7 +17,7 @@ class User extends Model implements AuthenticatableContract,
                                     CanResetPasswordContract,
                                     JWTSubject
 {
-    use Authenticatable, Authorizable, CanResetPassword;
+    use Authenticatable, Authorizable, Billable, CanResetPassword;
 
     /**
      * The database table used by the model.
