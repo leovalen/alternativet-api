@@ -3,9 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Cashier\Contracts\Billable as BillableContract;
 
-class Subscription extends Model implements BillableContract
+class Subscription extends Model
 {
     protected $dates = ['trial_ends_at', 'ends_at'];
 
