@@ -60,8 +60,8 @@ class User extends Model implements AuthenticatableContract,
         return [];
     }
 
-    public function membership()
+    public function subscriptions()
     {
-        return $this->hasMany('App\Membership');
+        return $this->hasMany('App\Subscription');
     }
 }
