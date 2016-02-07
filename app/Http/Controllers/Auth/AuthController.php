@@ -25,8 +25,6 @@ class AuthController extends Controller
 
     /**
      * Create a new authentication controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -44,6 +42,8 @@ class AuthController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
+            'postal_code' => 'required|min:4|max:4',
+            'birth_date' => 'required',
             'password' => 'required|confirmed|min:6',
         ]);
     }
@@ -59,6 +59,8 @@ class AuthController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'postal_code' => $data['postal_code'],
+            'birth_date' => $data['birth_date'],
             'password' => bcrypt($data['password']),
         ]);
     }
