@@ -7,4 +7,3 @@ Homestead.json
 _ide_helper*.php
 config/ide-helper.php
 composer.lock
-/config/jwt.php
