@@ -45,8 +45,7 @@
             "php artisan optimize"
         ],
         "pre-update-cmd": [
-            "php artisan clear-compiled",
-            "composer update --no-scripts"
+            "php artisan clear-compiled"
         ],
         "post-update-cmd": [
             "php artisan optimize"
