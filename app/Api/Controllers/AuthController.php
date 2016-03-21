@@ -3,6 +3,7 @@
 namespace Api\Controllers;
 
 use App\User;
+use Carbon\Carbon;
 use Dingo\Api\Facade\API;
 use Illuminate\Http\Request;
 use Api\Requests\UserRequest;
@@ -47,7 +48,7 @@ class AuthController extends BaseController
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'postal_code' => $request->get('postal_code'),
-            'birth_date' => Carbon::createFromTimeStamp( date_parse_from_format( 'd.m.Y', $request->get('birth_date'))),
+            'birth_date' => Carbon::createFromFormat( 'd.m.Y', $request->get('birth_date')),
             'password' => bcrypt($request->get('password')),
         ];
         $user = User::create($newUser);

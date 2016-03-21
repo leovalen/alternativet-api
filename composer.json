@@ -6,11 +6,11 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.2.*",
+        "laravel/framework": "5.2.10",
         "laravel/cashier": "~6.0",
         "dingo/api": "1.0.*@dev",
         "tymon/jwt-auth": "dev-develop",
-        "barryvdh/laravel-cors": "^0.7.1",
+        "barryvdh/laravel-cors": "0.8.x",
         "jaewun/discourse-sso-laravel": "^1.1",
         "predis/predis": "~1.0"
     },

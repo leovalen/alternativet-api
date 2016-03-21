@@ -32,4 +32,4 @@ $api->version('v1', function ($api) {
 	});
 });
 
-Route::controller('/auth', 'App\Http\Controllers\Auth\AuthController');
+// Route::controller('/auth', 'App\Http\Controllers\Auth\AuthController');
