@@ -4,7 +4,6 @@ namespace Api\Controllers;
 
 use App\Dog;
 use App\Http\Requests;
-use Illuminate\Http\Request;
 use Api\Requests\DogRequest;
 use Api\Transformers\DogTransformer;
 
@@ -34,7 +33,7 @@ class DogsController extends BaseController
     /**
      * Store a new dog in the database.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Api\Requests\DogRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(DogRequest $request)
@@ -56,7 +55,7 @@ class DogsController extends BaseController
     /**
      * Update the dog in the database.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Api\Requests\DogRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
