@@ -1,4 +1,10 @@
 <?php
+/*
+ * Ugly CORS workaround
+ */
+header("Access-Control-Allow-Headers: Content-Type, Origin, Accept, Authorization, X-Requested-With, DNT, Keep-Alive, User-Agent-X, If-Modified-Since, Cache-Control");
+header("Access-Control-Allow-Origin: *");
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
