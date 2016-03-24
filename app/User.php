@@ -11,7 +11,6 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Laravel\Cashier\Contracts\Billable as BillableContract;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
@@ -68,8 +67,19 @@ class User extends Model implements AuthenticatableContract,
         return [];
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function subscriptions()
     {
         return $this->hasMany('App\Subscription');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function appointments()
+    {
+        return $this->hasMany('App\Appointment');
     }
 }
