@@ -1,14 +1,12 @@
-## vue-starter Backend API (Laravel-based)
+## Alternativet Services API
 
-This application will serve as the companion app to another project called vue-starter. It is meant to be a small demo of a Laravel API, using Dingo and JWT for authentication.
-
-[vue-starter Frontend App](https://github.com/layer7be/vue-starter)
+Services back-end for Alternativet, based on the Laravel framework, Dingo, and the  [vue-starter Frontend App](https://github.com/layer7be/vue-starter)
 
 ## Installation
 
 ### Step 1: Clone the repo
 ```
-git clone https://github.com/layer7be/vue-starter-laravel-api
+git clone https://github.com/partialternativet/api
 ```
 
 ### Step 2: Prerequisites
