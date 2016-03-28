@@ -8,7 +8,7 @@ use Api\Requests\DogRequest;
 use Api\Transformers\DogTransformer;
 
 /**
- * @Resource('Dogs', uri='/dogs')
+ * @Resource("Dogs", uri="/dogs")
  */
 class DogsController extends BaseController
 {
@@ -23,7 +23,7 @@ class DogsController extends BaseController
      *
      * Get a JSON representation of all the dogs
      * 
-     * @Get('/')
+     * @Get("/")
      */
     public function index()
     {

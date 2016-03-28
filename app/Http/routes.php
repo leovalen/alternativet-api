@@ -16,8 +16,11 @@ $api->version('v1', function ($api) {
 		$api->post('login', 'AuthController@authenticate');
 		$api->post('register', 'AuthController@register');
 
-		// Dogs! All routes in here are protected and thus need a valid token
-		//$api->group( [ 'protected' => true, 'middleware' => 'jwt.refresh' ], function ($api) {
+		// Graphics
+		$api->get('graphics/members-map-norway.svg', 'GraphicsController@membersMapNorway');
+
+		// All routes in here are protected and thus need a valid token
+		// $api->group( [ 'protected' => true, 'middleware' => 'jwt.refresh' ], function ($api) {
 		$api->group( [ 'middleware' => 'jwt.refresh' ], function ($api) {
 
 			$api->get('users/me', 'AuthController@me');
@@ -27,7 +30,6 @@ $api->version('v1', function ($api) {
 			$api->get('dogs/{id}', 'DogsController@show');
 			$api->delete('dogs/{id}', 'DogsController@destroy');
 			$api->put('dogs/{id}', 'DogsController@update');
-
 		});
 	});
 });
