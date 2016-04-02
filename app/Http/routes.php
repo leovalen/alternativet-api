@@ -16,6 +16,9 @@ $api->version('v1', function ($api) {
 		$api->post('login', 'AuthController@authenticate');
 		$api->post('register', 'AuthController@register');
 
+		// Statistics
+		$api->get('statistics/users', 'StatisticsController@users');
+
 		// Graphics
 		$api->get('graphics/members-map-norway.svg', 'GraphicsController@membersMapNorway');
 
