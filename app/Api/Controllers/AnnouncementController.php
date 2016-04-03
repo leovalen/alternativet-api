@@ -13,7 +13,7 @@ class AnnouncementController extends BaseController
 {
     public function index()
     {
-        return Announcement::all();
+        return $this->collection( Announcement::all(), new AnnouncementTransformer);
     }
 
     /**
@@ -31,7 +31,7 @@ class AnnouncementController extends BaseController
                 ->limit(1)
                 ->get()
                 ->first(),
-            new AnnouncementTransformer()
+            new AnnouncementTransformer
         );
 
     }

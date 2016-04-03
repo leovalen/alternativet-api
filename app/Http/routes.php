@@ -23,6 +23,7 @@ $api->version('v1', function ($api) {
 		$api->get('graphics/members-map-norway.svg', 'GraphicsController@membersMapNorway');
 
 		// Announcements
+		$api->get('announcements', 'AnnouncementController@index');
 		$api->get('announcements/latest', 'AnnouncementController@latest');
 
 		// All routes in here are protected and thus need a valid token
