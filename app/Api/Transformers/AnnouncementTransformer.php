@@ -12,7 +12,8 @@ class AnnouncementTransformer extends TransformerAbstract
     {
         return [
             'id' 	        => (int) $announcement->id,
-            'content'       => $announcement->content,
+            'message'       => $announcement->message,
+            'url'           => $announcement->url,
             'publish_at'    => $announcement->publish_at,
             'unpublish_at'  => $announcement->unpublish_at
         ];

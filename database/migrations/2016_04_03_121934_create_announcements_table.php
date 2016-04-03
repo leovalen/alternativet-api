@@ -14,7 +14,8 @@ class CreateAnnouncementsTable extends Migration
     {
         Schema::create('announcements', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('content');
+            $table->text('message');
+            $table->text('url');
             $table->dateTime('publish_at')->nullable();
             $table->dateTime('unpublish_at')->nullable();
             $table->timestamps();

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Announcement;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\DB;
 
 class AnnouncementController extends BaseController
 {
@@ -23,16 +24,17 @@ class AnnouncementController extends BaseController
      */
     public function latest()
     {
-        return $this->item(
-            Announcement::where('publish_at', '>', Carbon::now())
-                ->where('unpublish_at', '<', Carbon::now())
-                ->orWhere('unpublish_at', null)
-                ->orderBy('publish_at', 'desc')
-                ->limit(1)
-                ->get()
-                ->first(),
-            new AnnouncementTransformer
-        );
+        $announcement = Announcement::orderBy('publish_at', 'desc')
+            ->limit(1)
+            ->get()
+            ->first();
 
+        if ($announcement) {
+            return $this->item($announcement, new AnnouncementTransformer);
+        }
+        else
+        {
+            return [];
+        }
     }
 }
