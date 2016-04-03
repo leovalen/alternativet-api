@@ -47,10 +47,12 @@ class AuthController extends BaseController
         $newUser = [
             'name' => $request->get('name'),
             'email' => $request->get('email'),
+            'phone' => $request->get('email'),
             'postal_code' => $request->get('postal_code'),
-            'birth_date' => Carbon::createFromFormat( 'd.m.Y', $request->get('birth_date')),
-            'password' => bcrypt($request->get('password')),
+            'birth_date' => $request->get('birth_date') ? Carbon::createFromFormat( 'd.m.Y', $request->get('birth_date')) : null,
+            'password' => $request->get('password') ? bcrypt($request->get('password')) : null,
         ];
+
         $user = User::create($newUser);
         $token = JWTAuth::fromUser($user);
 

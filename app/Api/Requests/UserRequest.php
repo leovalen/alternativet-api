@@ -26,9 +26,10 @@ class UserRequest extends Request
         return [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'postal_code' => 'required|digits:4',
-            'birth_date' => 'required|date_format:d.m.Y',
-            'password' => 'required|confirmed|min:4',
+            'phone' => 'required|max:15|unique:users',
+            'postal_code' => 'digits:4',
+            'birth_date' => 'date_format:d.m.Y',
+            'password' => 'confirmed|min:8',
         ];
     }
 }
