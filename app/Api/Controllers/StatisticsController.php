@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class StatisticsController extends Controller
+class StatisticsController extends BaseController
 {
     public function users()
     {
@@ -17,6 +17,6 @@ class StatisticsController extends Controller
           on (users.postal_code = postal_areas.postal_code)
           group by municipality_code"));
 
-        
+
     }
 }
