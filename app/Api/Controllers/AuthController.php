@@ -48,7 +48,7 @@ class AuthController extends BaseController
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'phone' => $request->get('email'),
-            'postal_code' => $request->get('postal_code'),
+            'postal_code' => $request->get('postal_code') ? $request->get('postal_code') : null,
             'birth_date' => $request->get('birth_date') ? Carbon::createFromFormat( 'd.m.Y', $request->get('birth_date')) : null,
             'password' => $request->get('password') ? bcrypt($request->get('password')) : null,
         ];
