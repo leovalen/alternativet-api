@@ -25,6 +25,8 @@ class AnnouncementController extends BaseController
     public function latest()
     {
         $announcement = Announcement::orderBy('publish_at', 'desc')
+            ->where('publish_at', '<', date("Y-m-d H:i:s", time()))
+            ->where('unpublish_at', '>', date("Y-m-d H:i:s", time()))
             ->limit(1)
             ->get()
             ->first();
