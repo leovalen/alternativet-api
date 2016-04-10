@@ -3,7 +3,6 @@
 namespace Api\Transformers;
 
 use App\Announcement;
-use App\Dog;
 use League\Fractal\TransformerAbstract;
 
 class AnnouncementTransformer extends TransformerAbstract

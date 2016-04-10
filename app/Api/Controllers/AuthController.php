@@ -4,9 +4,10 @@ namespace Api\Controllers;
 
 use App\User;
 use Carbon\Carbon;
+use Dingo\Api\Exception\StoreResourceFailedException;
 use Dingo\Api\Facade\API;
 use Illuminate\Http\Request;
-use Api\Requests\UserRequest;
+use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -42,7 +43,7 @@ class AuthController extends BaseController
         return API::response()->array(['status' => 'success'])->statusCode(200);
     }
 
-    public function register(UserRequest $request)
+    public function register(Request $request)
     {
         $newUser = [
             'name' => $request->get('name'),
@@ -53,6 +54,23 @@ class AuthController extends BaseController
             'password' => $request->get('password') ? bcrypt($request->get('password')) : null,
         ];
 
+        // Validate
+        $rules = [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'phone' => 'required|max:15|unique:users',
+            'postal_code' => 'digits:4',
+            'birth_date' => 'date_format:d.m.Y',
+            'password' => 'confirmed|min:8',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            throw new StoreResourceFailedException('Could not create new user.', $validator->errors());
+        }
+
+        // Create the new user
         $user = User::create($newUser);
         $token = JWTAuth::fromUser($user);
 
