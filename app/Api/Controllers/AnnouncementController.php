@@ -36,7 +36,7 @@ class AnnouncementController extends BaseController
         }
         else
         {
-            return [];
+            $this->response->noContent();
         }
     }
 }
