@@ -12,7 +12,8 @@
         "tymon/jwt-auth": "dev-develop",
         "barryvdh/laravel-cors": "0.8.x",
         "jaewun/discourse-sso-laravel": "^1.1",
-        "predis/predis": "~1.0"
+        "predis/predis": "~1.0",
+        "kickbox/kickbox": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.1",

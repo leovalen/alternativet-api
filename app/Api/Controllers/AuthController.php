@@ -2,12 +2,14 @@
 
 namespace Api\Controllers;
 
+use App\KickboxResult;
 use App\User;
 use Carbon\Carbon;
 use Dingo\Api\Exception\StoreResourceFailedException;
 use Dingo\Api\Facade\API;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Kickbox\Client;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -54,15 +56,29 @@ class AuthController extends BaseController
             'password' => $request->get('password') ? bcrypt($request->get('password')) : null,
         ];
 
-        // Validate
+        // Validation rules
         $rules = [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|kickbox|email|max:255|unique:users',
             'phone' => 'required|max:15|unique:users',
             'postal_code' => 'digits:4',
             'birth_date' => 'date_format:d.m.Y',
             'password' => 'confirmed|min:8',
         ];
+
+        Validator::extend('kickbox', function($attribute, $value, $parameters, $validator) {
+
+            $client = new Client('f19f5e96ef43cfb54a6704ccec1059fd00c2099527ba97b0a3b2c4f476031048');
+            $kickbox = $client->kickbox();
+            $response = $kickbox->verify($value);
+            $result = KickboxResult::create($response->body);
+
+            if ( $result->result == 'undeliverable' )
+            {
+                return false;
+            }
+            return true;
+        });
 
         $validator = Validator::make($request->all(), $rules);
 

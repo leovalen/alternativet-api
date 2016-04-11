@@ -12,6 +12,8 @@ return [
     | as the size rules. Feel free to tweak each of these messages here.
     |
     */
+    
+    'kickbox'              => 'Denne e-postadressen ser ut til å være ugyldig.',
 
     'accepted'             => 'The :attribute must be accepted.',
     'active_url'           => 'The :attribute is not a valid URL.',
@@ -34,7 +36,7 @@ return [
     'different'            => 'The :attribute and :other must be different.',
     'digits'               => 'The :attribute must be :digits digits.',
     'digits_between'       => 'The :attribute must be between :min and :max digits.',
-    'email'                => 'The :attribute must be a valid email address.',
+    'email'                => 'E-postadressen har feil format.',
     'exists'               => 'The selected :attribute is invalid.',
     'filled'               => 'The :attribute field is required.',
     'image'                => 'The :attribute must be an image.',
