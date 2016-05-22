@@ -12,8 +12,6 @@ return [
     | as the size rules. Feel free to tweak each of these messages here.
     |
     */
-    
-    'kickbox'              => 'Denne e-postadressen ser ut til å være ugyldig.',
 
     'accepted'             => 'The :attribute must be accepted.',
     'active_url'           => 'The :attribute is not a valid URL.',
@@ -90,9 +88,19 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+
+        'name' => [
+            'required' => 'Hva heter du?',
         ],
+
+        'email' => [
+            'kickbox' => 'Sorry, e-postadressen funker ikke. Skriveleif?',
+            'unique' => 'E-postadressen er allerede registrert.',
+            'required' => 'Du må skrive e-postadressen din :)',
+        ],
+        'phone' => [
+            'required' => 'Vi må ha mobilnummer for å bekrefte identiteten din :)'
+        ]
     ],
 
     /*

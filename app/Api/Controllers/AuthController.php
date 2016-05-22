@@ -47,10 +47,11 @@ class AuthController extends BaseController
 
     public function register(Request $request)
     {
-        $newUser = [
+        // Sanitize input
+        $input = [
             'name' => $request->get('name'),
             'email' => $request->get('email'),
-            'phone' => $request->get('email'),
+            'phone' => str_replace( " ", "", $request->get('phone')),
             'postal_code' => $request->get('postal_code') ? $request->get('postal_code') : null,
             'birth_date' => $request->get('birth_date') ? Carbon::createFromFormat( 'd.m.Y', $request->get('birth_date')) : null,
             'password' => $request->get('password') ? bcrypt($request->get('password')) : null,
@@ -80,6 +81,12 @@ class AuthController extends BaseController
             return true;
         });
 
+        Validator::extend('mobile', function($attribute, $value, $parameters, $validator) {
+
+
+
+        });
+
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
@@ -87,7 +94,7 @@ class AuthController extends BaseController
         }
 
         // Create the new user
-        $user = User::create($newUser);
+        $user = User::create($input);
         $token = JWTAuth::fromUser($user);
 
         return response()->json(compact('token'));
