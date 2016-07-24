@@ -47,6 +47,15 @@ class AuthController extends BaseController
 
     public function register(Request $request)
     {
+        // Check if the user exists but does not have a password set.
+        $user = User::where('email', $request->get('email'))->whereNull('password');
+
+        if ($user)
+        {
+            // Send email with link to login and set password
+
+        }
+
         // Sanitize input
         $input = [
             'name' => $request->get('name'),
@@ -57,7 +66,7 @@ class AuthController extends BaseController
             'password' => $request->get('password') ? bcrypt($request->get('password')) : null,
         ];
 
-        // Validation rules
+        // Set the validation rules
         $rules = [
             'name' => 'required|max:255',
             'email' => 'required|kickbox|email|max:255|unique:users',
