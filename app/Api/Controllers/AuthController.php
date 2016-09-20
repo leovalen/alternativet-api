@@ -90,7 +90,7 @@ class AuthController extends BaseController
             return true;
         });
 
-        Validator::extend('mobile', function($attribute, $value, $parameters, $validator) {
+        Validator::extend('phone', function($attribute, $value, $parameters, $validator) {
 
 
 
