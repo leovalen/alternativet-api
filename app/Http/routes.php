@@ -26,6 +26,9 @@ $api->version('v1', function ($api) {
 		$api->get('announcements', 'AnnouncementController@index');
 		$api->get('announcements/latest', 'AnnouncementController@latest');
 
+        // Webhook endpoint for typeform
+        $api->post('typeform', 'TypeformController@store');
+
 		// All routes in here are protected and thus need a valid token
 		// $api->group( [ 'protected' => true, 'middleware' => 'jwt.refresh' ], function ($api) {
 		$api->group( [ 'middleware' => 'jwt.refresh' ], function ($api) {
