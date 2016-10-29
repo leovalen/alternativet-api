@@ -149,8 +149,6 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
-        jaewun\DiscourseSSOLaravel\SSOServiceProvider::class
-
     ],
 
     /*
