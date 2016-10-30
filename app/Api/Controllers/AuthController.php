@@ -2,6 +2,7 @@
 
 namespace Api\Controllers;
 
+use Api\Transformers\UserTransformer;
 use App\KickboxResult;
 use App\User;
 use Carbon\Carbon;
@@ -17,7 +18,11 @@ class AuthController extends BaseController
 {
     public function me(Request $request)
     {
-        return JWTAuth::parseToken()->authenticate();
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if ($user) {
+            return $this->item($user, new UserTransformer, ['key' => 'user']);
+        }
     }
 
     public function authenticate(Request $request)
@@ -78,7 +83,7 @@ class AuthController extends BaseController
 
         Validator::extend('kickbox', function($attribute, $value, $parameters, $validator) {
 
-            $client = new Client('f19f5e96ef43cfb54a6704ccec1059fd00c2099527ba97b0a3b2c4f476031048');
+            $client = new Client(config('services.kickbox.secret'));
             $kickbox = $client->kickbox();
             $response = $kickbox->verify($value);
             $result = KickboxResult::create($response->body);

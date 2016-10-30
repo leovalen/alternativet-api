@@ -24,4 +24,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'kickbox' => [
+        'secret' => env('KICKBOX_SECRET')
+    ]
+
 ];
