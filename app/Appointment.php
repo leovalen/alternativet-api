@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
+    public $dates = [
+        'elected_at',
+        'active_from',
+        'active_to',
+        'created_at',
+        'updated_at'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -19,7 +27,7 @@ class Appointment extends Model
      */
     public function type()
     {
-        return $this->belongsTo('App\AppointmentType');
+        return $this->belongsTo('App\AppointmentType', 'appointment_type_id', 'id');
     }
 
     /**

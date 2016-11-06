@@ -13,7 +13,8 @@ class UserTransformer extends TransformerAbstract
     ];
 
     protected $defaultIncludes = [
-        'membership'
+        'membership',
+        'appointments'
     ];
 
     /**
@@ -37,6 +38,11 @@ class UserTransformer extends TransformerAbstract
     public function includeMembership(User $user)
     {
         return $this->item($user->membership->first(), new MembershipTransformer);
+    }
+
+    public function includeAppointments(User $user)
+    {
+        return $this->collection($user->appointments, new AppointmentsTransformer);
     }
 
 }
