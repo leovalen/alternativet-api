@@ -35,6 +35,6 @@ class Appointment extends Model
      */
     public function organisation()
     {
-        return $this->hasOne('App\Organisation');
+        return $this->belongsTo('App\Organisation');
     }
 }

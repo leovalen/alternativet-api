@@ -7,11 +7,21 @@ use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
 {
+    /*
+     * Available includes
+     *
+     * @var array $availableIncludes
+     */
     protected $availableIncludes = [
         'membership',
         'appointments'
     ];
 
+    /*
+     * Default includes
+     *
+     * @var array $defaultIncludes
+     */
     protected $defaultIncludes = [
         'membership',
         'appointments'
@@ -35,6 +45,10 @@ class UserTransformer extends TransformerAbstract
         ];
     }
 
+    /**
+     * @param User $user
+     * @return \League\Fractal\Resource\Item|null
+     */
     public function includeMembership(User $user)
     {
         if ( empty($user->membership->first())) return null;
@@ -42,9 +56,12 @@ class UserTransformer extends TransformerAbstract
         return $this->item($user->membership->first(), new MembershipTransformer);
     }
 
+    /**
+     * @param User $user
+     * @return \League\Fractal\Resource\Collection
+     */
     public function includeAppointments(User $user)
     {
         return $this->collection($user->appointments, new AppointmentsTransformer);
     }
-
 }

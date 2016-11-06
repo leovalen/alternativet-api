@@ -29,6 +29,7 @@ class AppointmentsTransformer extends TransformerAbstract
             'id'           => (int) $appointment->id,
             'name'         => $appointment->type->name,
             'forum'        => $appointment->type->forum,
+            'organisation' => $appointment->organisation->name,
             'is_active'    => (bool) $is_active,
             'is_elected'   => (bool) $appointment->is_elected,
             'elected_at'   => $appointment->elected_at,
