@@ -37,6 +37,8 @@ class UserTransformer extends TransformerAbstract
 
     public function includeMembership(User $user)
     {
+        if ( ! isset($user->membership)) return null;
+
         return $this->item($user->membership->first(), new MembershipTransformer);
     }
 
