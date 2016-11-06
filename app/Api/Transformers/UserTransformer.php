@@ -7,6 +7,19 @@ use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = [
+        'membership',
+        'appointments'
+    ];
+
+    protected $defaultIncludes = [
+        'membership'
+    ];
+
+    /**
+     * @param User $user
+     * @return array
+     */
     public function transform(User $user)
     {
         return [
@@ -20,4 +33,10 @@ class UserTransformer extends TransformerAbstract
             'birth_date'            => $user->birth_date
         ];
     }
+
+    public function includeMembership(User $user)
+    {
+        return $this->item($user->membership->first(), new MembershipTransformer);
+    }
+
 }

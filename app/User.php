@@ -76,6 +76,24 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
+     * This user's currently active memberhip
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function membership()
+    {
+        return $this->memberships()->active();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function memberships()
+    {
+        return $this->hasMany('App\Membership');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function appointments()
