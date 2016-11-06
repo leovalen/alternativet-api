@@ -62,6 +62,8 @@ class UserTransformer extends TransformerAbstract
      */
     public function includeAppointments(User $user)
     {
+        if ( $user->appointments->isEmpty() ) return null;
+
         return $this->collection($user->appointments, new AppointmentsTransformer);
     }
 }
