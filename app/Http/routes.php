@@ -34,6 +34,7 @@ $api->version('v1', function ($api) {
 		$api->group( [ 'middleware' => 'jwt.refresh' ], function ($api) {
 
 			$api->get('users/me', 'AuthController@me');
+            $api->put('users/me/password', 'AuthController@setPassword');
 			$api->get('validate_token', 'AuthController@validateToken');
 			$api->get('dogs', 'DogsController@index');
 			$api->post('dogs', 'DogsController@store');

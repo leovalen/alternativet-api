@@ -25,6 +25,28 @@ class AuthController extends BaseController
         }
     }
 
+    public function setPassword(Request $request)
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if ($user)
+        {
+            if ( $request->input('password') == $request->input('confirm_password') )
+            {
+                $user->password = password_hash($request->input('password'), PASSWORD_DEFAULT);
+                $user->save();
+            }
+            else
+            {
+                return response()->json(['error' => 'password_confirmation_mismatch'], 422);
+            }
+
+            return $this->item($user, new UserTransformer, ['key' => 'user']);
+        }
+
+        return response()->json(['error' => 'invalid_credentials'], 401);
+    }
+
     public function authenticate(Request $request)
     {
         // grab credentials from the request
