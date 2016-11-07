@@ -25,18 +25,22 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td class="content-block">
-                                        Hei {{ $user->name }},<br />
+                                        Hei {{ $user->name }},
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="content-block">
                                         Velkommen til Alternativet!
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="content-block">
-                                        Du mottar denne e-posten fordi du nettopp har opprettet bruker hos <a href="https://alternativet.party">Alternativet</a>.
+                                        Du mottar denne e-posten fordi du nettopp har opprettet konto på <a href="https://alternativet.party">alternativet.party</a>.
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="content-block">
-                                        Vi jobber med å utvikle medlemsplattformen vår på nett. Inntil videre foregår det meste i <a href="https://www.facebook.com/groups/528114394010043/">Facebook-gruppene våre</a>. Meld deg inn i <a href="https://www.facebook.com/groups/528114394010043/">hovedgruppa</a> for å delta i samtaler og politikkutvikling!
+                                        Vi jobber med å utvikle medlemsplattformen vår på nett. Inntil videre foregår det meste i <a href="https://www.facebook.com/groups/528114394010043/">Facebook-gruppene våre</a>. Meld deg inn i <a href="https://www.facebook.com/groups/528114394010043/">hovedgruppa</a> for å delta i samtaler og politikkutvikling.
                                     </td>
                                 </tr>
                                 <tr>
@@ -52,8 +56,10 @@
                 <div class="footer">
                     <table width="100%">
                         <tr>
-                            <td class="aligncenter content-block">Du har mottatt denne e-posten fordi du har opprettet bruker hos <a href="https://alternativet.party">Alternativet</a>.<br />
-                            Alternativet | orgnr. 916483511 | telefon 46665333</td>
+                            <td class="aligncenter content-block">
+                                Du har mottatt denne e-posten fordi du har opprettet bruker hos <a href="https://alternativet.party">Alternativet</a>.<br />
+                                Postadresse: Alternativet, Turbinveien 1, 0195 OSLO<br />
+                                Telefon 46665333 | org. nr. 916483511</td>
                         </tr>
                         <tr>
                             <td class="aligncenter content-block"><a href="mailto:medlem@alternativet.party">Meld om feil »</a></td>
