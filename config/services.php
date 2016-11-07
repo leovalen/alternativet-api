@@ -14,6 +14,10 @@ return [
     |
     */
 
+    'mandrill' => [
+        'secret' => env('MANDRILL_SECRET'),
+    ],
+
     'sparkpost' => [
         'secret' => env('SPARKPOST_SECRET'),
     ],
