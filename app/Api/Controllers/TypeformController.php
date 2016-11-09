@@ -2,19 +2,15 @@
 
 namespace Api\Controllers;
 
-use Api\Transformers\AnnouncementTransformer;
+use App\Jobs\HandleTypeform;
 use App\Typeform;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Announcement;
-
 use App\Http\Requests;
-use Illuminate\Support\Facades\DB;
 
 class TypeformController extends BaseController
 {
     /**
-     * Show the latest announcement
+     * Store typeform input data and dispatch a handler job
      *
      * @return \Illuminate\Http\Response
      */
@@ -23,5 +19,14 @@ class TypeformController extends BaseController
         $typeform = new Typeform();
         $typeform->data = $request->input();
         $typeform->save();
+
+        $data = json_decode($typeform->data);
+
+        if ($data->event_type != 'form_response')
+        {
+            return;
+        }
+
+        $this->dispatch(new HandleTypeform($typeform));
     }
 }
