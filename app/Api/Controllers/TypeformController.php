@@ -4,11 +4,13 @@ namespace Api\Controllers;
 
 use App\Jobs\HandleTypeform;
 use App\Typeform;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 
 class TypeformController extends BaseController
 {
+    use DispatchesJobs;
+
     /**
      * Store typeform input data and dispatch a handler job
      *
@@ -17,12 +19,11 @@ class TypeformController extends BaseController
     public function store(Request $request)
     {
         $typeform = new Typeform();
-        $typeform->data = $request->input();
+        $typeform->data = json_encode($request->input());
         $typeform->save();
 
-        $data = json_decode($typeform->data);
 
-        if ($data->event_type != 'form_response')
+        if ($request->input('event_type') != 'form_response')
         {
             return;
         }

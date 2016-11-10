@@ -15,6 +15,8 @@ class HandleTypeform implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $typeform;
+
     /*
      * The Typeform instance.
      *
@@ -113,10 +115,10 @@ class HandleTypeform implements ShouldQueue
         {
             // User already exists, so we'll send an email instead of overwriting the existing record
             // @todo
+            return;
         }
 
         $user->save();
-
 
         if ( isset($membership) )
         {
