@@ -9,9 +9,8 @@ use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleTypeform implements ShouldQueue
+class HandleTypeform
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
