@@ -12,8 +12,9 @@ $api->version('v1', function ($api) {
 	// Set our namespace for the underlying routes
 	$api->group(['namespace' => 'Api\Controllers'], function ($api) {
 
-		// Login route
+		// Auth routes
 		$api->post('login', 'AuthController@authenticate');
+        $api->post('verify', 'AuthController@authenticate');
 		$api->post('register', 'AuthController@register');
 
 		// Statistics
