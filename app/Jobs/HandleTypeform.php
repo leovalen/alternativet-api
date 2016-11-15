@@ -110,7 +110,7 @@ class HandleTypeform
         }
 
         // Check if there's a already a registered user with the same email address and/or phone number
-        if ( User::where('email', '=', $user->email)->count() > 0 )
+        if ( User::where('email', $user->email)->count() > 0 )
         {
             // User already exists, so we'll send an email instead of overwriting the existing record
             // @todo
