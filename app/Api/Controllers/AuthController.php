@@ -16,6 +16,12 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends BaseController
 {
+    /**
+     * Get the currently authenticated user
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function me(Request $request)
     {
         $user = JWTAuth::parseToken()->authenticate();
@@ -25,6 +31,13 @@ class AuthController extends BaseController
         }
     }
 
+
+    /**
+     * Set a new user password
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function setPassword(Request $request)
     {
         $user = JWTAuth::parseToken()->authenticate();
@@ -47,6 +60,12 @@ class AuthController extends BaseController
         return response()->json(['error' => 'invalid_credentials'], 401);
     }
 
+    /**
+     * Authenticate
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function authenticate(Request $request)
     {
         // grab credentials from the request
@@ -66,12 +85,23 @@ class AuthController extends BaseController
         return response()->json(compact('token'));
     }
 
-    public function validateToken() 
+    /**
+     * Validate a JSON Web Token
+     *
+     * @return mixed
+     */
+    public function validateToken()
     {
         // Our routes file should have already authenticated this token, so we just return success here
         return API::response()->array(['status' => 'success'])->statusCode(200);
     }
 
+    /**
+     * Register a new user
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register(Request $request)
     {
         // Check if the user exists but does not have a password set.
