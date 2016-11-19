@@ -31,7 +31,6 @@ class AuthController extends BaseController
         }
     }
 
-
     /**
      * Set a new user password
      *
