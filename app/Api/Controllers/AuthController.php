@@ -118,7 +118,9 @@ class AuthController extends BaseController
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
-        // all good so return the token
+        // Invalidate the login token
+        $login->delete();
+
         return response()->json(compact('token'));
     }
 
@@ -212,7 +214,7 @@ class AuthController extends BaseController
             'email' => 'required|email|exists:users'
         ];
 
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->only('email'), $rules);
 
         if ($validator->fails()) {
             throw new ValidationHttpException($validator->errors());

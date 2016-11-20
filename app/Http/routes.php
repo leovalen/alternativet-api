@@ -33,7 +33,7 @@ $api->version('v1', function ($api) {
 
         // Password reset
         $api->group( ['middleware' => 'api.throttle', 'limit' => 10, 'expires' => 5], function ($api) {
-            $api->post('users/send-reset-password-token', 'AuthController@sendResetPasswordToken');
+            $api->post('send-reset-password-token', 'AuthController@sendResetPasswordToken');
         });
 
 		// All routes in here are protected and thus need a valid token
