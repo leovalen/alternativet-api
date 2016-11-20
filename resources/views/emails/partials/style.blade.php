@@ -219,6 +219,10 @@
         background-color: #68B90F;
     }
 
+    .alert.alert-info {
+        background-color: #0363a0;
+    }
+
     /* -------------------------------------
         RESPONSIVE AND MOBILE FRIENDLY STYLES
     ------------------------------------- */

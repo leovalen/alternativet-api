@@ -6,18 +6,15 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Cashier\Billable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
-                                    CanResetPasswordContract,
                                     JWTSubject
 {
-    use Authenticatable, Authorizable, Billable, CanResetPassword;
+    use Authenticatable, Authorizable, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -38,7 +35,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password'];
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT
@@ -92,5 +89,13 @@ class User extends Model implements AuthenticatableContract,
     public function appointments()
     {
         return $this->hasMany('App\Appointment');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function loginTokens()
+    {
+        return $this->hasMany('App\LoginToken');
     }
 }

@@ -4,11 +4,15 @@ namespace Api\Controllers;
 
 use Api\Transformers\UserTransformer;
 use App\KickboxResult;
+use App\LoginToken;
+use App\Mail\ResetPassword;
 use App\User;
 use Carbon\Carbon;
 use Dingo\Api\Exception\StoreResourceFailedException;
+use Dingo\Api\Exception\ValidationHttpException;
 use Dingo\Api\Facade\API;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Kickbox\Client;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -85,6 +89,40 @@ class AuthController extends BaseController
     }
 
     /**
+     * Authenticate with login token
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function authenticateWithLoginToken(Request $request)
+    {
+        $login = LoginToken::where('token', $request->input('token'))
+            ->where('expires_at', '>', Carbon::now())
+            ->get()
+            ->first();
+
+        if ( ! $login )
+        {
+            return response()->json(['error' => 'invalid_credentials'], 401);
+        }
+
+        $user = User::find($login->user_id);
+
+        try {
+            // attempt to verify the credentials and create a token for the user
+            if (! $token = JWTAuth::fromUser($user)) {
+                return response()->json(['error' => 'invalid_credentials'], 401);
+            }
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(['error' => 'could_not_create_token'], 500);
+        }
+
+        // all good so return the token
+        return response()->json(compact('token'));
+    }
+
+    /**
      * Validate a JSON Web Token
      *
      * @return mixed
@@ -148,8 +186,6 @@ class AuthController extends BaseController
 
         Validator::extend('phone', function($attribute, $value, $parameters, $validator) {
 
-
-
         });
 
         $validator = Validator::make($request->all(), $rules);
@@ -163,5 +199,33 @@ class AuthController extends BaseController
         $token = JWTAuth::fromUser($user);
 
         return response()->json(compact('token'));
+    }
+
+    /**
+     * Send a password reset token e-mail to the specified address
+     *
+     * @param Request $request
+     */
+    public function sendResetPasswordToken(Request $request)
+    {
+        $rules = [
+            'email' => 'required|email|exists:users'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            throw new ValidationHttpException($validator->errors());
+        }
+
+        $user = User::where('email', $request->input('email'))->get()->first();
+
+        $token = new LoginToken;
+        $token->user_id = $user->id;
+        $token->token = str_random(63);
+        $token->expires_at = Carbon::now()->addHour();
+        $token->save();
+
+        Mail::to($user->email)->send(new ResetPassword($user, $token));
     }
 }
