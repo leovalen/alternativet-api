@@ -30,7 +30,7 @@
                                 </tr>
                                 <tr>
                                     <td class="content-block">
-                                        <a href="{{ config('app.url') . "/profil/sikkerhet/" . $token->token }}">Følg denne lenken for å sette nytt passord til kontoen din på alternativet.party »</a>
+                                        <a href="{{ config('app.url') . "/nytt-passord/" . $token->token }}">Følg denne lenken for å sette nytt passord til kontoen din på alternativet.party »</a>
                                     </td>
                                 </tr>
                                 <tr>
