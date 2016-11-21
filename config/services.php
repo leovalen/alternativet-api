@@ -29,7 +29,13 @@ return [
     ],
 
     'kickbox' => [
-        'secret' => env('KICKBOX_SECRET')
+        'secret' => env('KICKBOX_SECRET'),
+    ],
+
+    'workplace' => [
+        'scim_url' => env('WORKPLACE_SCIM_URL'),
+        'api_token' => env('WORKPLACE_API_TOKEN'),
+        'community_id' => env('WORKPLACE_COMMUNITY_ID'),
     ]
 
 ];
