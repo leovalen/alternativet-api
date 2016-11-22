@@ -45,6 +45,7 @@ $api->version('v1', function ($api) {
 			$api->get('validate_token', 'AuthController@validateToken');
 
             // Workplace by Facebook interface
+            $api->get('workplace/account', 'WorkplaceController@status');
             $api->post('workplace/account', 'WorkplaceController@provision');
             $api->put('workplace/account/deactivate', 'WorkplaceController@deactivate');
             $api->delete('workplace/account', 'WorkplaceController@delete');

@@ -26,7 +26,14 @@ class WorkplaceController extends BaseController
      */
     public function status()
     {
-        
+        $user = Auth::user();
+
+        if ( empty($user->workplace) )
+        {
+            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+        }
+
+        return $user->workplace;
     }
 
     /**
