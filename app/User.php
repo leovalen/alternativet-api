@@ -98,4 +98,12 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany('App\LoginToken');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function workplace()
+    {
+        return $this->hasOne('App\WorkplaceAccount');
+    }
 }

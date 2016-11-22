@@ -43,6 +43,13 @@ $api->version('v1', function ($api) {
 			$api->get('users/me', 'AuthController@me');
             $api->put('users/me/password', 'AuthController@setPassword');
 			$api->get('validate_token', 'AuthController@validateToken');
+
+            // Workplace by Facebook interface
+            $api->post('workplace/account', 'WorkplaceController@provision');
+            $api->put('workplace/account/deactivate', 'WorkplaceController@deactivate');
+            $api->delete('workplace/account', 'WorkplaceController@delete');
+
+            // Dogs (example code)
 			$api->get('dogs', 'DogsController@index');
 			$api->post('dogs', 'DogsController@store');
 			$api->get('dogs/{id}', 'DogsController@show');
