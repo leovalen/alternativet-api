@@ -30,7 +30,7 @@
                                 </tr>
                                 <tr>
                                     <td class="content-block">
-                                        <a href="{{ config('app.url') . "/nytt-passord/" . $token->token }}">Følg denne lenken for å sette nytt passord til kontoen din på alternativet.party »</a>
+                                        <a mc:disable-tracking href="{{ config('app.url') . "/nytt-passord/" . $token->token }}">Følg denne lenken for å sette nytt passord til kontoen din på alternativet.party »</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -52,12 +52,12 @@
                     <table width="100%">
                         <tr>
                             <td class="aligncenter content-block">
-                                Du har mottatt denne meldingen fordi du er registrert hos <a href="https://alternativet.party">Alternativet</a>.<br />
+                                Du har mottatt denne meldingen fordi du er registrert hos <a mc:disable-tracking href="https://alternativet.party">Alternativet</a>.<br />
                                 Postadresse: Alternativet, Turbinveien 1, 0195 OSLO<br />
                                 Telefon 46665333 | org. nr. 916483511</td>
                         </tr>
                         <tr>
-                            <td class="aligncenter content-block"><a href="mailto:medlem@alternativet.party">Meld om feil »</a></td>
+                            <td class="aligncenter content-block"><a mc:disable-tracking href="mailto:medlem@alternativet.party">Meld om feil »</a></td>
                         </tr>
                     </table>
                 </div>
