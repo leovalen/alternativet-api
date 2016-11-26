@@ -18,7 +18,7 @@ use Kickbox\Client;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
-class AuthController extends BaseController
+class UserController extends BaseController
 {
     /**
      * Get the currently authenticated user
