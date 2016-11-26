@@ -225,7 +225,7 @@ class AuthController extends BaseController
         $token = new LoginToken;
         $token->user_id = $user->id;
         $token->token = str_random(63);
-        $token->expires_at = Carbon::now()->addWeek();
+        $token->expires_at = Carbon::now()->addHours(72);
         $token->save();
 
         Mail::to($user->email)->send(new ResetPassword($user, $token));
