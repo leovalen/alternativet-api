@@ -19,6 +19,7 @@ class CreateMembershipsTable extends Migration
             $table->date('valid_from');
             $table->date('valid_to');
             $table->dateTime('renewed_at')->nullable();
+            $table->dateTime('cancelled_at')->nullable();
             $table->timestamps();
         });
     }
