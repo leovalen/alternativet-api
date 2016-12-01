@@ -44,6 +44,10 @@ $api->version('v1', function ($api) {
             $api->put('users/me/password', 'UserController@setPassword');
 			$api->get('validate_token', 'UserController@validateToken');
 
+			// Membership
+            $api->post('users/me/membership', 'UserController@activateMembership');
+            $api->delete('users/me/membership', 'UserController@deactivateMembership');
+
             // Workplace by Facebook interface
             $api->get('workplace/account', 'WorkplaceController@status');
             $api->post('workplace/account', 'WorkplaceController@provision');

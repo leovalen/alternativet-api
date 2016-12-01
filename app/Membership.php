@@ -10,8 +10,19 @@ class Membership extends Model
     protected $dates = [
         'valid_from',
         'valid_to',
-        'renewed_at'
+        'renewed_at',
+        'cancelled_at'
     ];
+
+    public function __construct()
+    {
+        $this->setRawAttributes([
+            'valid_from' => Carbon::now(),
+            'valid_to' => Carbon::now()->addYear()
+        ], true);
+
+        parent::__construct();
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -31,6 +42,9 @@ class Membership extends Model
     {
         return $query
             ->where('valid_from', '<=', Carbon::now())
-            ->where('valid_to', '>=', Carbon::now());
+            ->where('valid_to', '>=', Carbon::now())
+            ->whereNull('cancelled_at')
+            ->orderBy('updated_at', 'desc')
+            ->limit(1);
     }
 }

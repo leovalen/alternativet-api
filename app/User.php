@@ -66,7 +66,7 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
-     * This user's currently active memberhip
+     * This user's currently active membership
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

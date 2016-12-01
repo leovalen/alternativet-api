@@ -6,6 +6,7 @@ use Api\Transformers\UserTransformer;
 use App\KickboxResult;
 use App\LoginToken;
 use App\Mail\ResetPassword;
+use App\Membership;
 use App\User;
 use Carbon\Carbon;
 use Dingo\Api\Exception\StoreResourceFailedException;
@@ -229,5 +230,43 @@ class UserController extends BaseController
         $token->save();
 
         Mail::to($user->email)->send(new ResetPassword($user, $token));
+    }
+
+    /**
+     * Activate the user's membership
+     */
+    public function activateMembership()
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if ( ! $user->membership->isEmpty() )
+        {
+            throw new \Dingo\Api\Exception\StoreResourceFailedException('Membership already exists.');
+        }
+
+        $membership = new Membership();
+        $membership->user()->associate($user);
+        $membership->save();
+
+        // Mail::to($user->email)->send(new ResetPassword($user, $token));
+    }
+
+    /**
+     * Deactivate the user's membership
+     */
+    public function deactivateMembership()
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if ( ! isset($user->membership) )
+        {
+            throw new \Dingo\Api\Exception\UpdateResourceFailedException('The user does not have a membership.');
+        }
+
+        $membership = $user->membership->first();
+        $membership->valid_to = Carbon::now();
+        $membership->cancelled_at = Carbon::now();
+        $membership->save();
+
     }
 }
