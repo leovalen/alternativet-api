@@ -9,6 +9,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Log;
 
 class ProvisionAccount implements ShouldQueue
 {
@@ -39,6 +40,7 @@ class ProvisionAccount implements ShouldQueue
     public function handle()
     {
         $user = $this->user;
+        Log::info("Provisioning Workplace account for user " . $user->id . ".");
 
         $request = [
             'schemas' => [
@@ -69,7 +71,8 @@ class ProvisionAccount implements ShouldQueue
         if ( $response->getStatusCode() !== 201 )
         {
             // It didn't work
-            return $response->getBody();
+            Log::warning("Workplace account provisioning failed", ['response' => $response->getBody()->getContents()]);
+            return;
         }
 
         $body = json_decode($response->getBody()->getContents());

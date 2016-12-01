@@ -8,6 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Log;
 
 class DeleteAccount implements ShouldQueue
 {
@@ -38,6 +39,12 @@ class DeleteAccount implements ShouldQueue
     public function handle()
     {
         $user = $this->user;
+
+        if ( ! $user->workplace )
+        {
+            Log::info("User " . $user->id . " doesn't have a workplace account, so the account can't be deleted.");
+            return;
+        }
 
         $request = [
             'schemas' => [

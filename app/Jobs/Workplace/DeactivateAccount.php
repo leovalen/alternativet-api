@@ -8,6 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Log;
 
 class DeactivateAccount implements ShouldQueue
 {
@@ -38,6 +39,7 @@ class DeactivateAccount implements ShouldQueue
     public function handle()
     {
         $user = $this->user;
+        Log::info("Deactivating Workplace account for user " . $user->id . ".");
 
         $request = [
             'schemas' => [
