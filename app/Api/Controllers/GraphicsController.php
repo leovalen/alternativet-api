@@ -47,7 +47,7 @@ class GraphicsController extends BaseController
                     }
                     else
                     {
-                        $path['style'] = 'fill:#777;fill-opacity:1;stroke:none';
+                        $path['style'] = 'fill:#555;fill-opacity:1;stroke:none';
                     }
                 }
             }
