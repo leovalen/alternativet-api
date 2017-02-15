@@ -3,6 +3,7 @@
 namespace Api\Controllers;
 
 use Api\Transformers\UserTransformer;
+use App\Jobs\Workplace\ProvisionAccount;
 use App\KickboxResult;
 use App\LoginToken;
 use App\Mail\ResetPassword;
@@ -247,6 +248,9 @@ class UserController extends BaseController
         $membership = new Membership();
         $membership->user()->associate($user);
         $membership->save();
+
+        // Provision Workplace account
+        $this->dispatch(new ProvisionAccount($membership->user));
 
         // Mail::to($user->email)->send(new ResetPassword($user, $token));
     }
