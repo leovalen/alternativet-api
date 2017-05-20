@@ -35,13 +35,14 @@ class UserTransformer extends TransformerAbstract
     {
         return [
             'id' 	                => (int) $user->id,
+            'uuid'                  => $user->uuid,
             'name' 	                => $user->name,
             'email'                 => $user->email,
             'address'               => $user->address,
             'postal_code'           => $user->postal_code,
             'phone_country_code'    => $user->phone_country_code,
             'phone'                 => $user->phone,
-            'birth_date'            => $user->birth_date
+            'birth_date'            => $user->birth_date,
         ];
     }
 

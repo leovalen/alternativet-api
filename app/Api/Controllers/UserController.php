@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Kickbox\Client;
+use Ramsey\Uuid\Uuid;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -200,8 +201,13 @@ class UserController extends BaseController
 
         // Create the new user
         $user = User::create($input);
-        $token = JWTAuth::fromUser($user);
 
+        // Set the user's UUID
+        $user->uuid = Uuid::uuid4();
+        $user->save();
+
+        // Create an auth token for the user and return it to the client
+        $token = JWTAuth::fromUser($user);
         return response()->json(compact('token'));
     }
 
