@@ -3,18 +3,16 @@
 namespace Api\Controllers;
 
 use Api\Transformers\UserTransformer;
-use App\Jobs\Workplace\ProvisionAccount;
 use App\KickboxResult;
 use App\LoginToken;
-use App\Mail\ResetPassword;
-use App\Membership;
+use App\Repositories\UserRepository;
+use App\Repositories\UserRepositoryInterface;
 use App\User;
 use Carbon\Carbon;
 use Dingo\Api\Exception\StoreResourceFailedException;
 use Dingo\Api\Exception\ValidationHttpException;
 use Dingo\Api\Facade\API;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Kickbox\Client;
 use Ramsey\Uuid\Uuid;
@@ -23,6 +21,23 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class UserController extends BaseController
 {
+    /*
+     * The user repository
+     *
+     * @var $users
+     */
+    protected $users;
+
+    /**
+     * UserController constructor.
+     *
+     * @param UserRepositoryInterface $users
+     */
+    public function __construct(UserRepositoryInterface $users)
+    {
+        $this->users = $users;
+    }
+
     /**
      * Get the currently authenticated user
      *
@@ -200,11 +215,7 @@ class UserController extends BaseController
         }
 
         // Create the new user
-        $user = User::create($input);
-
-        // Set the user's UUID
-        $user->uuid = Uuid::uuid4();
-        $user->save();
+        $user = UserRepository::create($input);
 
         // Create an auth token for the user and return it to the client
         $token = JWTAuth::fromUser($user);
@@ -230,13 +241,7 @@ class UserController extends BaseController
 
         $user = User::where('email', $request->input('email'))->get()->first();
 
-        $token = new LoginToken;
-        $token->user_id = $user->id;
-        $token->token = str_random(63);
-        $token->expires_at = Carbon::now()->addHours(72);
-        $token->save();
-
-        Mail::to($user->email)->send(new ResetPassword($user, $token));
+        $this->users::sendResetPasswordTokenEmail($user);
     }
 
     /**
@@ -251,14 +256,7 @@ class UserController extends BaseController
             throw new \Dingo\Api\Exception\StoreResourceFailedException('Membership already exists.');
         }
 
-        $membership = new Membership();
-        $membership->user()->associate($user);
-        $membership->save();
-
-        // Provision Workplace account
-        $this->dispatch(new ProvisionAccount($membership->user));
-
-        // Mail::to($user->email)->send(new ResetPassword($user, $token));
+        $this->users::activateMembership($user);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Membership;
+use App\Repositories\UserRepository;
 use App\Typeform;
 use App\User;
 use Carbon\Carbon;
@@ -15,6 +16,7 @@ class HandleTypeform
     use InteractsWithQueue, Queueable, SerializesModels;
 
     protected $typeform;
+    protected $users;
 
     /*
      * The Typeform instance.
@@ -28,6 +30,7 @@ class HandleTypeform
     public function __construct(Typeform $typeform)
     {
         $this->typeform = $typeform;
+        $this->users = new UserRepository();
     }
 
     /**
@@ -39,7 +42,7 @@ class HandleTypeform
     {
         $data = json_decode($this->typeform->data);
 
-        if ($data->form_response->form_id == "u5OmqD")
+        if ($data->form_response->form_id == "R0wZBU")
         {
             $this->handleSignup($data);
         }
@@ -52,77 +55,45 @@ class HandleTypeform
      */
     protected function handleSignup($data)
     {
-        $user = new User;
-        $membership = null;
+        $user = $this->users->getUserByUuid($data->form_response->hidden->token);
 
         foreach ( $data->form_response->answers as $answer)
         {
             switch ($answer->field->id) {
 
-                case 34684524:
-                    // "Hva heter du?"
-                    $user->name = $answer->text;
-                    break;
-
-                case 34684651:
-                    // "Hva er mobilnummeret ditt?"
-                    $user->phone = $answer->text;
-                    break;
-
-                case 34684952:
-                    // "Hva er e-postadressen din?"
-                    $user->email = $answer->email;
-                    break;
-
-                case 34688420:
-                    // "Når ble du født?"
-                    $user->birth_date = $answer->date;
-                    break;
-
-                case 35451671:
+                case "ksBb":
                     // "Hva er postnummeret ditt?"
                     $user->postal_code = $answer->text;
                     break;
 
-                case 34686331:
+                case "ONCX":
+                    // "Når ble du født?"
+                    $user->birth_date = $answer->date;
+                    break;
+
+                case "L1TL":
                     // "Hvordan ble du kjent med Alternativet?"
                     break;
 
-                case 34688877:
-                    // "Vil du være med på dugnad?"
+                case "gR6q":
+                    // "Vil du bli medlem i Alternativet?"
+                    if ( $answer->boolean === true )
+                    {
+                        $this->users->activateMembership($user);
+                    }
                     break;
 
-                case 34685729:
-                    // "Ønsker du medlemskap i Alternativet?"
-                    $membership = new Membership;
-                    $membership->valid_from = Carbon::now();
-                    $membership->valid_to = Carbon::now()->addYear();
+                case "oOau":
+                    // "Hvor mye?"
                     break;
 
-                case 34685206:
-                    // "Vil du bidra med penger til Alternativets aktiviteter?"
-                    break;
-
-                case 34688977:
-                    //
+                case "H5yk":
+                    // "Takk for bidraget på {amount}!"
+                    $amount = $answer->payment->amount;
                     break;
             }
         }
 
-        // Check if there's a already a registered user with the same email address and/or phone number
-        if ( User::where('email', $user->email)->count() > 0 )
-        {
-            // User already exists, so we'll send an email instead of overwriting the existing record
-            // @todo
-            return;
-        }
-
         $user->save();
-
-        if ( isset($membership) )
-        {
-            $membership->user()->associate($user);
-            $membership->save();
-        }
     }
 }

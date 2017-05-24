@@ -53,7 +53,7 @@
                         <tr>
                             <td class="aligncenter content-block">
                                 Du har mottatt denne meldingen fordi du er registrert hos <a mc:disable-tracking href="https://alternativet.party">Alternativet</a>.<br />
-                                Postadresse: Alternativet, Turbinveien 1, 0195 OSLO<br />
+                                Postadresse: Alternativet, Heimdalsgata 27E, 0561 OSLO<br />
                                 Telefon 46665333 | org. nr. 916483511</td>
                         </tr>
                         <tr>
