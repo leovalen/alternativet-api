@@ -75,7 +75,7 @@ class HandleTypeform
                     // "Hvordan ble du kjent med Alternativet?"
                     break;
 
-                case "gR6q":
+                case "52133648":
                     // "Vil du bli medlem i Alternativet?"
                     if ( $answer->boolean === true )
                     {
