@@ -95,11 +95,12 @@ return [
 
         'email' => [
             'kickbox' => 'Sorry, e-postadressen funker ikke. Skriveleif?',
-            'unique' => 'E-postadressen er allerede registrert.',
+            'unique' => "E-postadressen er allerede registrert.",
             'required' => 'Du må skrive e-postadressen din :)',
         ],
         'phone' => [
-            'required' => 'Vi må ha mobilnummer for å bekrefte identiteten din :)'
+            'unique' => 'Mobilnummeret er allerede registrert.',
+            'required' => 'Vi må ha mobilnummer for å bekrefte identiteten din :)',
         ]
     ],
 
