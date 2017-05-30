@@ -84,11 +84,10 @@ class HandleTypeform
                     break;
 
                 case "oOau":
-                    // "Hvor mye?"
+                    // "Hvor mye vil du betale i kontingent?"
                     break;
 
                 case "H5yk":
-                    // "Takk for bidraget på {amount}!"
                     $amount = $answer->payment->amount;
                     break;
             }
